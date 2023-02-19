@@ -25,7 +25,7 @@ export default function Home() {
   const [resource, setResource] = React.useState<MoveResource>();
   const [resource_v2, setResourceV2] = React.useState();
 
-  const [nonce, setNonce] = useState("random_string_change");
+  const [nonce, setNonce] = useState("random_string_may_change_as_nonce");
   const [msg, setMsg] = useState("");
   const [signData, setSignData] = useState("");
   const [signDetail, setSignDetail] = useState("");
