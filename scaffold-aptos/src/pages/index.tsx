@@ -27,6 +27,7 @@ export default function Home() {
 
   const [msg, setMsg] = useState("");
   const [signData, setSignData] = useState("");
+  const [signDetail, setSignDetail] = useState("");
   const [formInput, updateFormInput] = useState<{
     did_type: number
     description: string;
@@ -163,8 +164,8 @@ export default function Home() {
 
 
   const buildSignMessagePayload = (messageToSign: string) => {
-    const nonce = 'random_string';
-    return [
+    const nonce = 'random_string_change';
+    let payload = [
       'pontem',
       'petra',
       'martian',
@@ -182,6 +183,8 @@ export default function Home() {
         nonce
       }
       : messageToSign;
+    console.log("sign payload ", payload);
+    return payload;
   }
 
   useEffect(() => {
@@ -197,8 +200,14 @@ export default function Home() {
   const signMessageAction = async () => {
     if (connected) {
       const signedMessage = await signMessage(buildSignMessagePayload(msg));
+
       const response = typeof signedMessage === 'string' ? signedMessage : signedMessage.signature;
+
       setSignData(response.toString());
+
+      let detailObj = signedMessage as Object;
+      console.log(detailObj);
+      setSignDetail(JSON.stringify(detailObj, null, 2));
     } else {
       alert("connect wallet first...");
     }
@@ -226,6 +235,9 @@ export default function Home() {
         <div className="w-full mt-3  rounded-md ">
           <p className="rounded-md border-slate-600	">
             Sign Content :  <b> {signData} </b>
+          </p>
+          <p className="rounded-md border-slate-600	mt-5">
+            Sign Detail :  <b> {signDetail} </b>
           </p>
         </div>
       </div>
