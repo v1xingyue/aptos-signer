@@ -25,6 +25,7 @@ export default function Home() {
   const [resource, setResource] = React.useState<MoveResource>();
   const [resource_v2, setResourceV2] = React.useState();
 
+  const [nonce, setNonce] = useState("random_string_change");
   const [msg, setMsg] = useState("");
   const [signData, setSignData] = useState("");
   const [signDetail, setSignDetail] = useState("");
@@ -164,7 +165,6 @@ export default function Home() {
 
 
   const buildSignMessagePayload = (messageToSign: string) => {
-    const nonce = 'random_string_change';
     let payload = [
       'pontem',
       'petra',
@@ -216,6 +216,14 @@ export default function Home() {
   return (
     <div>
       <div className="m-7 p-4  w-full rounded-md border-2">
+        <input
+          placeholder="nounce"
+          className="mt-8 p-4 input input-bordered input-primary w-full"
+          onChange={(e) =>
+            setNonce(e.target.value)
+          }
+          value={nonce}
+        />
         <input
           placeholder="message"
           className="mt-8 p-4 input input-bordered input-primary w-full"
